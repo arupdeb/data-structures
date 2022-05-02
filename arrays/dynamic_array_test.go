@@ -79,16 +79,16 @@ func TestGet(t *testing.T) {
 	}
 }
 
-func BenchMarkGet(b *testing.B, arr *arrays.Array, testSize int){
+func benchmarkGet(b *testing.B, arr *arrays.Array, testSize int) {
 
-	for i:=0; i<=b.N ; i++ {
-		for j:=0;j<testSize; j++ {
+	for i := 0; i <= b.N; i++ {
+		for j := 0; j < testSize; j++ {
 			arr.Get(j)
 		}
 	}
 }
 
-func BenchMarkArrayGet100(b *testing.B) {
+func BenchmarkArrayGet100(b *testing.B) {
 	b.StopTimer()
 	arr := arrays.CreateNewArray()
 	testSize := 100
@@ -97,5 +97,26 @@ func BenchMarkArrayGet100(b *testing.B) {
 		arr.Add(i)
 	}
 	b.StartTimer()
-	BenchMarkGet(b, arr, testSize)
+	benchmarkGet(b, arr, testSize)
+}
+
+func benchmarkRemoveAt(b *testing.B, arr *arrays.Array, testSize int) {
+
+	for i := 0; i <= b.N; i++ {
+		for j := testSize; j >= 0; j-- {
+			arr.Get(j)
+		}
+	}
+}
+
+func BenchmarkArrayRemoveAt100(b *testing.B) {
+	b.StopTimer()
+	arr := arrays.CreateNewArray()
+	testSize := 100
+	//adding 100 elements
+	for i := 0; i < testSize; i++ {
+		arr.Add(i)
+	}
+	b.StartTimer()
+	benchmarkRemoveAt(b, arr, testSize)
 }

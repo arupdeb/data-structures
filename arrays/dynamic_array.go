@@ -3,7 +3,6 @@ package arrays
 
 import (
 	"errors"
-	"log"
 )
 
 //Array is a struct of slice representing a dynamic Array and will not use the append or any inbuilt function
@@ -40,15 +39,19 @@ func (arr *Array) Add(values ...interface{}) {
 		arr.growBy(len(values))
 		newElement := make([]interface{}, arr.capacity)
 		//copy old array elemets to new array; old length remains same
-		for i := 0; i <= arr.length; i++ {
-			newElement[i] = arr.elements[i]
+		if arr.length != -1 {
+			for i := 0; i <= arr.length; i++ {
+				newElement[i] = arr.elements[i]
+			}
 		}
 		arr.elements = newElement
 	}
+
 	for _, val := range values {
 		arr.length++
 		arr.elements[arr.length] = val
 	}
+	//log.Println(arr.elements, arr.capacity, arr.length)
 }
 
 //RemoveAt removes the array at a specific index
@@ -66,7 +69,6 @@ func (arr *Array) RemoveAt(index int) (interface{}, error) {
 	}
 	arr.elements[arr.length] = nil
 	arr.length--
-	log.Println(arr.elements, arr.capacity, arr.length)
 	//shrink capacity
 	arr.shrinkBy()
 	return data, nil
@@ -147,7 +149,7 @@ func (arr *Array) Clear() {
 
 //growBy increases the capacity based on the value to be added
 func (arr *Array) growBy(valueLength int) {
-	arr.capacity = int(growthFactor) * (arr.length + valueLength)
+	arr.capacity = int(growthFactor) * (arr.length + 1 + valueLength)
 }
 
 func (arr *Array) shrinkBy() {
