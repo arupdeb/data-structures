@@ -1,4 +1,3 @@
-// contains(obj)
 package linkedList
 
 import (
@@ -26,7 +25,7 @@ func CreateNewList(values ...interface{}) *Links {
 	if len(values) == 0 {
 		return ll
 	}
-	for i := 0; i <= len(values); i++ {
+	for i := 0; i < len(values); i++ {
 		ll.Add(values[i])
 	}
 	return ll
