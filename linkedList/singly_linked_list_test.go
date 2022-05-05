@@ -94,3 +94,90 @@ func TestRemoveAt(t *testing.T) {
 		t.Errorf("Expected %v got %v", 9, res)
 	}
 }
+
+func TestRemoveElement(t *testing.T) {
+	list := linkedList.CreateNewList()
+	if _, err := list.RemoveElement(32); err == nil {
+		t.Errorf("Expected %v got %v", "element not found", err)
+	}
+	list.Add("abc") // adding combination of strings and integer in the same list
+	for i := 0; i < 10; i++ {
+		list.Add(i)
+	}
+	if res, err := list.RemoveElement(6); res != 6 || err != nil {
+		t.Errorf("Expected %v, got %v", 6, res)
+	}
+	if res, err := list.RemoveElement("abc"); res != "abc" || err != nil {
+		t.Errorf("Expected %v, got %v", "abc", res)
+	}
+	if res, err := list.RemoveElement(9); res != 9 || err != nil {
+		t.Errorf("Expected %v, got %v", res, err)
+	}
+	if res, err := list.RemoveElement(4); res != 4 || err != nil {
+		t.Errorf("Expected %v, got %v", res, err)
+	}
+}
+
+func Test_Contains(t *testing.T) {
+	list := linkedList.CreateNewList()
+	for i := 0; i < 10; i++ {
+		list.Add(i)
+	}
+	if res := list.Contains(0); res != true {
+		t.Errorf("Expected %v, got %v", true, res)
+	}
+	if res := list.Contains(9); res != true {
+		t.Errorf("Expected %v, got %v", true, res)
+	}
+	if res := list.Contains(5); res != true {
+		t.Errorf("Expected %v, got %v", true, res)
+	}
+}
+
+func Test_IsEmpty(t *testing.T) {
+	list := linkedList.CreateNewList()
+	if res := list.IsEmpty(); res != true {
+		t.Errorf("Expected %v, got %v", true, res)
+	}
+	list.Add("a")
+	if res := list.IsEmpty(); res != false {
+		t.Errorf("Expected %v, got %v", true, res)
+	}
+}
+
+func BenchmarkAdd(b *testing.B) {
+	b.StopTimer()
+	list := linkedList.CreateNewList()
+	// for i := 0; i < 100; i++ {
+	// 	list.Add(i)
+	// }
+	b.StartTimer()
+	BenchMarkAdd(b, list, 100)
+}
+
+func BenchMarkAdd(b *testing.B, list *linkedList.Links, testSize int) {
+	for i := 0; i <= b.N; i++ {
+		for j := 0; j < testSize; j++ {
+			list.Add(j)
+		}
+	}
+}
+
+
+func BenchmarkRemoveElement(b *testing.B) {
+	b.StopTimer()
+	list := linkedList.CreateNewList()
+	for i := 0; i < 100; i++ {
+		list.Add(i)
+	}
+	b.StartTimer()
+	BenchMarkele(b, list, 100)
+}
+
+func BenchMarkele(b *testing.B, list *linkedList.Links, testSize int) {
+	for i := 0; i <= b.N; i++ {
+		for j := testSize -1; j >=0 ; j-- {
+			list.RemoveElement(j)
+		}
+	}
+}

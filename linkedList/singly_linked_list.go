@@ -166,7 +166,7 @@ func (ll *Links) Remove(n *node) (interface{}, error) {
 //RemoveAt removes the node at a given index: not real index: Complexity O(n)
 func (ll *Links) RemoveAt(index int) (interface{}, error) {
 	var removedData interface{}
-	var err error 
+	var err error
 	if index >= ll.Size() {
 		return nil, errors.New("index out of bounds")
 	} else if index == 0 {
@@ -178,7 +178,7 @@ func (ll *Links) RemoveAt(index int) (interface{}, error) {
 	} else {
 		var i int = 1
 		for n := ll.head; n.next != nil; n = n.next {
-		
+
 			if i == index {
 				removedData = n.next.data
 				err = nil
@@ -195,23 +195,37 @@ func (ll *Links) RemoveAt(index int) (interface{}, error) {
 //RemoveElement removes a node matching the data passed : complexity O(n)
 func (ll *Links) RemoveElement(element interface{}) (interface{}, error) {
 	var removedData interface{} = nil
-	for n := ll.head; n.next != nil; n = n.next {
-		if n.next.data == element {
+	var err error = nil
+	var i int = 0
+	for n := ll.head; n != nil; n = n.next { // cannot be n.next != nil as nil pointer reference for empty array
+		if i == 0 || i == ll.Size()-1 {
+			if n.data == element && i == 0 {
+				removedData, err = ll.RemoveFirst()
+				break
+			} else if n.data == element && i == ll.Size()-1 {
+				removedData, err = ll.RemoveLast()
+				break
+			} else {
+				i++
+			}
+		} else if n.next.data == element {
 			removedData = n.next.data
 			n.next = n.next.next
 			ll.size--
 			break
+		} else {
+			i++
 		}
 	}
 	if removedData == nil {
 		return nil, errors.New("element not found")
 	}
-	return removedData, nil
+	return removedData, err
 }
 
 //Contains returns true/false based on element found on the list : complexity O(n)
 func (ll *Links) Contains(element interface{}) bool {
-	for n := ll.head; n.next != nil; n = n.next {
+	for n := ll.head; n != nil; n = n.next {
 		if n.data == element {
 			return true
 		}
