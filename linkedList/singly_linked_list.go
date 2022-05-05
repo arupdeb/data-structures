@@ -166,17 +166,28 @@ func (ll *Links) Remove(n *node) (interface{}, error) {
 //RemoveAt removes the node at a given index: not real index: Complexity O(n)
 func (ll *Links) RemoveAt(index int) (interface{}, error) {
 	var removedData interface{}
-	var err error
+	var err error 
 	if index >= ll.Size() {
 		return nil, errors.New("index out of bounds")
-	}
-	n := ll.head
-	for i := 0; i < ll.Size()-1; i++ {
-		if i == index {
-			removedData, err = ll.Remove(n)
-			break
+	} else if index == 0 {
+		removedData, err = ll.RemoveFirst()
+		return removedData, err
+	} else if index == ll.Size()-1 {
+		removedData, err = ll.RemoveLast()
+		return removedData, err
+	} else {
+		var i int = 1
+		for n := ll.head; n.next != nil; n = n.next {
+		
+			if i == index {
+				removedData = n.next.data
+				err = nil
+				n.next = n.next.next
+				ll.size--
+				break
+			}
+			i++
 		}
-		n = n.next
 	}
 	return removedData, err
 }
@@ -198,7 +209,7 @@ func (ll *Links) RemoveElement(element interface{}) (interface{}, error) {
 	return removedData, nil
 }
 
-//Contains returns true/ false based on element found on the list : complexity O(n)
+//Contains returns true/false based on element found on the list : complexity O(n)
 func (ll *Links) Contains(element interface{}) bool {
 	for n := ll.head; n.next != nil; n = n.next {
 		if n.data == element {
@@ -210,7 +221,12 @@ func (ll *Links) Contains(element interface{}) bool {
 
 //PrintList : Prints the list in console
 func (ll *Links) PrintList() {
-	for n := ll.head; n.next != nil; n = n.next {
-		log.Println(n, "n")
+	log.Println("Head: ", ll.head)
+	log.Println("Tail: ", ll.tail)
+	if ll.Size() > 0 {
+		for n := ll.head; n != nil; n = n.next {
+			log.Println(n)
+		}
 	}
+
 }
