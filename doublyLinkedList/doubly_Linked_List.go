@@ -153,11 +153,9 @@ func (ll *Links) Remove(n *node) (interface{}, error) {
 		return nil, errors.New("empty List: cannot remove element")
 	} else if n.next == nil {
 		removedData, err = ll.RemoveLast()
-		ll.size--
 		return removedData, err
 	} else if n.prev == nil {
 		removedData, err = ll.RemoveFirst()
-		ll.size--
 		return removedData, err
 	} else {
 		for i := ll.head.next; i.next != nil; i = i.next {
@@ -210,15 +208,12 @@ func (ll *Links) RemoveElement(element interface{}) (interface{}, error) {
 		if n.data == element {
 			if n.prev == nil {
 				removedData, err = ll.RemoveFirst()
-				ll.size--
 				break
 			} else if n.next == nil {
 				removedData, err = ll.RemoveLast()
-				ll.size--
 				break
 			} else {
 				removedData, err =  ll.Remove(n)
-				ll.size--
 				break
 			}
 		}
