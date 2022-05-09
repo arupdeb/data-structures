@@ -1,7 +1,3 @@
-//size, isEmpty, push
-//pop, peek (return without removing)
-//search (linear) O()n
-
 package stacks
 
 import (
