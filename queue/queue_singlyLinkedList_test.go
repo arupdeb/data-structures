@@ -254,21 +254,61 @@ func Test_queue_PrintQueue(t *testing.T) {
 	}{
 		{
 			name: "Print Empty Queue",
-			q: CreateNewQueue(),
+			q:    CreateNewQueue(),
 		},
 		{
 			name: "Print Queue 1 element",
-			q: CreateNewQueue("jsdhsp"),
+			q:    CreateNewQueue("jsdhsp"),
 		},
 		{
 			name: "Print Queue with multiple element",
-			q: CreateNewQueue("a", "b","c", 1,3,7653, "abc"),
+			q:    CreateNewQueue("a", "b", "c", 1, 3, 7653, "abc"),
 		},
-
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.q.PrintQueue()
 		})
 	}
+}
+
+func BenchMarkEnqueue(b *testing.B, q *queue, values []interface{}) {
+	for i := 0; i <= b.N; i++ {
+		q.Enqueue(values...)
+	}
+}
+
+func BenchmarkEnqueue(b *testing.B) {
+	b.StopTimer()
+	q := CreateNewQueue()
+	var values []interface{}
+	testSize := 100
+	for i := 0; i < testSize; i++ {
+		values = append(values, i)
+	}
+	b.StartTimer()
+	BenchMarkEnqueue(b, q, values)
+
+}
+
+func BenchMarkDequeue(b *testing.B, q *queue, testSize int) {
+	for i := 0; i <= b.N; i++ {
+		for j := 0; j < testSize; j++ {
+			q.Dequeue()
+		}
+	}
+}
+
+func BenchmarkDequeue(b *testing.B) {
+	b.StopTimer()
+	q := CreateNewQueue()
+	var values []interface{}
+	testSize := 100
+	for i := 0; i < testSize; i++ {
+		values = append(values, i)
+	}
+	q.Enqueue(values...)
+	b.StartTimer()
+	BenchMarkDequeue(b, q, testSize)
+
 }
