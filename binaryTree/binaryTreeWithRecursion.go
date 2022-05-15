@@ -1,10 +1,10 @@
 //Binary tree
-//in-order traversal, pre-order traversal, post-order traversal
 //need to implement a comparator for type check  - BST
+//TO-DO
+// add_element(node), delete_element(), search_element(), bench_mark test
 package binaryTree
 
 import (
-	"errors"
 	"log"
 )
 
@@ -19,21 +19,29 @@ type tree struct {
 	size int //total number of nodes in a tree
 }
 
-func CreateNewTree(value interface{}) (*tree, error) {
-	n := &Node{
-		data:  value,
-		left:  nil,
-		right: nil,
-	}
-	if value != nil {
+func CreateNewTree(value interface{}) *tree {
+	if value == nil {
 		return &tree{
-			root: n,
-			size: 1,
-		}, nil
+			root: nil,
+			size: 0,
+		}
 	}
-	return nil, errors.New("cannot create new tree: no data for root node")
+	return &tree{
+		root: &Node{
+			data:  value,
+			left:  nil,
+			right: nil,
+		},
+		size: 1,
+	}
 }
 
+func (t *tree) TreeSize() int {
+	if t.root == nil {
+		return 0
+	}
+	return t.size
+}
 
 func (t *tree) PreOrderTraversal(node *Node) {
 	if node != nil {
