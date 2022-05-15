@@ -1,45 +1,10 @@
 package binaryTree
 
 import (
-	"reflect"
 	"testing"
 )
 
-func TestCreateNewTree(t *testing.T) {
-	type args struct {
-		value interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{
-			name: "create new Tree empty paramenter or nil",
-			args: args{
-				value: nil,
-			},
-			want: 0,
-		},
-		{
-			name: "create new tree with a value",
-			args: args{
-				value: 45687,
-			},
-			want: 1,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := CreateNewTree(tt.args.value)
-			if !reflect.DeepEqual(got.TreeSize(), tt.want) {
-				t.Errorf("CreateNewTree() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_tree_PreOrderTraversal(t *testing.T) {
+func Test_tree_PreOrderTraversalRecursive(t *testing.T) {
 	tests := []struct {
 		name       string
 		beforeTest func() *tree
@@ -56,8 +21,8 @@ func Test_tree_PreOrderTraversal(t *testing.T) {
 			beforeTest: func() *tree {
 				t := CreateNewTree(123)
 				t.root.left = &Node{
-					data: 456,
-					left: nil,
+					data:  456,
+					left:  nil,
 					right: nil,
 				}
 				return t
@@ -68,13 +33,13 @@ func Test_tree_PreOrderTraversal(t *testing.T) {
 			beforeTest: func() *tree {
 				t := CreateNewTree(123)
 				t.root.left = &Node{
-					data: 456,
-					left: nil,
+					data:  456,
+					left:  nil,
 					right: nil,
 				}
 				t.root.right = &Node{
-					data: 428,
-					left: nil,
+					data:  428,
+					left:  nil,
 					right: nil,
 				}
 				return t
@@ -84,7 +49,7 @@ func Test_tree_PreOrderTraversal(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tr := tt.beforeTest()
-			tr.PreOrderTraversal(tr.root)
+			tr.PreOrderTraversalRecursive(tr.root)
 		})
 	}
 }
@@ -106,8 +71,8 @@ func Test_tree_InorderTraversal(t *testing.T) {
 			beforeTest: func() *tree {
 				t := CreateNewTree(123)
 				t.root.left = &Node{
-					data: 456,
-					left: nil,
+					data:  456,
+					left:  nil,
 					right: nil,
 				}
 				return t
@@ -118,13 +83,13 @@ func Test_tree_InorderTraversal(t *testing.T) {
 			beforeTest: func() *tree {
 				t := CreateNewTree(123)
 				t.root.left = &Node{
-					data: 456,
-					left: nil,
+					data:  456,
+					left:  nil,
 					right: nil,
 				}
 				t.root.right = &Node{
-					data: 428,
-					left: nil,
+					data:  428,
+					left:  nil,
 					right: nil,
 				}
 				return t
@@ -134,7 +99,7 @@ func Test_tree_InorderTraversal(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tr := tt.beforeTest()
-			tr.PreOrderTraversal(tr.root)
+			tr.InorderTraversalRecursive(tr.root)
 		})
 	}
 }
@@ -156,8 +121,8 @@ func Test_tree_PostOrderTraversal(t *testing.T) {
 			beforeTest: func() *tree {
 				t := CreateNewTree(123)
 				t.root.left = &Node{
-					data: 456,
-					left: nil,
+					data:  456,
+					left:  nil,
 					right: nil,
 				}
 				return t
@@ -168,13 +133,13 @@ func Test_tree_PostOrderTraversal(t *testing.T) {
 			beforeTest: func() *tree {
 				t := CreateNewTree(123)
 				t.root.left = &Node{
-					data: 456,
-					left: nil,
+					data:  456,
+					left:  nil,
 					right: nil,
 				}
 				t.root.right = &Node{
-					data: 428,
-					left: nil,
+					data:  428,
+					left:  nil,
 					right: nil,
 				}
 				return t
@@ -184,7 +149,7 @@ func Test_tree_PostOrderTraversal(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tr := tt.beforeTest()
-			tr.PostOrderTraversal(tr.root)
+			tr.PostOrderTraversalRecursive(tr.root)
 		})
 	}
 }
