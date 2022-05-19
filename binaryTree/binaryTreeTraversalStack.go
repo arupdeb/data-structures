@@ -54,7 +54,7 @@ func (t *tree) PreOrderTraversalStack(root *Node) {
 			break
 		}
 		data := headElement.(*Node)
-		log.Println(data.data) // no need to push left node or root node in the stack
+		log.Println(data.data)  // Print the root node
 		s.Pop()
 
 		if data.right != nil {
