@@ -66,36 +66,65 @@ func (t *tree) PreOrderTraversalStack(root *Node) {
 	}
 }
 
-//PreOrderTraversalStack : uses stack to traverse the binary tree using pre-order traversal- DFS
-// func (t *tree) PostOrderTraversalStack(root *Node) {
-// 	s := stacks.CreateNewStack()
+//PreOrderTraversalStack2  2nd method: uses stack to traverse the binary tree using pre-order traversal- DFS
+func (t *tree) PreOrderTraversalStack2(root *Node) {
+	if root == nil {
+		return
+	}
 
-// 	for i := root; i != nil || !s.IsEmpty(); {
+	s := stacks.CreateNewStack()
+	s.Push(root)
 
-// 		for j := i; j != nil; {
-// 			s.Push(j)
-// 			j = j.left
-// 		}
-// 		//j is nil after visiting all the left nodes
+	for !s.IsEmpty() {
 
-// 		// get the topmost entry and peek the value
-// 		top, err := s.Peek()
-// 		if err != nil {
-// 			log.Println(err.Error())
-// 		}
+		headElement, err := s.Peek()
+		if err != nil {
+			log.Println(err.Error())
+			break
+		}
+		data := headElement.(*Node)
+		log.Println(data.data)  // Print the root node
+		s.Pop()
 
-// 		// store the data to i for visiting
-// 		i = top.(*Node)
+		if data.right != nil {
+			s.Push(data.right)
+		}
+		if data.left != nil {
+			s.Push(data.left)
+		}
+	}
+}
 
-// 		//Print the right node value
-// 		if i.right != nil {
-// 			log.Println("i.right.data : ", i.right.data)
-// 		}
-// 		//Print the Root node value
-// 		log.Println("i.data : ", i.data)
-// 		s.Pop() // visited
-// 		// visit right subtree
-// 		i = i.right
+// PostOrderTraversalStack : uses stack to traverse the binary tree using post-order traversal- DFS
+func (t *tree) PostOrderTraversalStack(root *Node) {
+	s := stacks.CreateNewStack()
 
-// 	}
-// }
+	for i := root; i != nil || !s.IsEmpty(); {
+
+		for j := i; j != nil; {
+			s.Push(j)
+			j = j.left
+		}
+		//j is nil after visiting all the left nodes
+
+		// get the topmost entry and peek the value
+		top, err := s.Peek()
+		if err != nil {
+			log.Println(err.Error())
+		}
+
+		// store the data to i for visiting
+		i = top.(*Node)
+
+		//Print the right node value
+		if i.right != nil {
+			log.Println("i.right.data : ", i.right.data)
+		}
+		//Print the Root node value
+		log.Println("i.data : ", i.data)
+		s.Pop() // visited
+		// visit right subtree
+		i = i.right
+
+	}
+}
