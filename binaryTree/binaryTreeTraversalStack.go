@@ -33,8 +33,8 @@ func (t *tree) InorderTraversalStack(root *Node) {
 		log.Println(top.(*Node).data)
 		curr = top.(*Node)
 		// visit right subtree
-			curr = curr.right
-		
+		curr = curr.right
+
 	}
 }
 
@@ -90,7 +90,7 @@ func (t *tree) PreOrderTraversalStack2(root *Node) {
 		}
 		//here curr will be nil after the loop completes
 		//take out the topmost from stack i.e right child of the node printed above
-		//set current to the right child / popped element 
+		//set current to the right child / popped element
 		if !s.IsEmpty() {
 			val, err := s.Pop()
 			if err != nil {
@@ -100,6 +100,52 @@ func (t *tree) PreOrderTraversalStack2(root *Node) {
 			curr = val.(*Node)
 		}
 	}
+}
+
+func (t *tree) PostOrderTraversalStack(root *Node) {
+
+	if root == nil {
+		return
+	}
+	s := stacks.CreateNewStack()
+	curr := root
+
+	for !s.IsEmpty() || curr != nil {
+
+		for curr != nil {
+			if curr.right != nil {
+				s.Push(curr.right) //push right node if exists: befor the root node
+			}
+			s.Push(curr) //push root node to stack after right child
+
+			curr = curr.left
+		}
+
+		val, err := s.Pop() // pop the top element after current reaches null i.e root
+		if err != nil {
+			log.Println(err.Error())
+		}
+		curr = val.(*Node)
+		log.Println("curr.right",curr.right)
+		if curr.right != nil {
+			top, _ := s.Peek()
+			log.Println("top",top)
+			//log.Println(curr.right.left)
+			log.Println(top.(*Node).right, curr.right.right)
+			log.Println(top.(*Node).data, curr.right.data)
+			// top of stack and root's right node are equal
+			if top.(*Node).left == curr.right.left && top.(*Node).right == curr.right.right && top.(*Node).data == curr.right.data {
+				root := curr       //store the root node in temp variable
+				val, _ = s.Pop()   // pop the right child when equal to roots right child
+				curr = val.(*Node) //set current node to the right child to traverse the tree
+				s.Push(root)       //push the root back to stack
+			}
+
+		}
+		log.Println(curr.data) //Print the current node/ root node
+		curr = nil
+	}
+
 }
 
 // PostOrderTraversalStack : uses stack to traverse the binary tree using post-order traversal- DFS
