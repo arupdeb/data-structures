@@ -127,6 +127,8 @@ func (t *tree) PostOrderTraversalStack(root *Node) {
 		}
 		curr = val.(*Node)
 		log.Println("curr :", curr)
+		log.Println("curr.right :", curr.right)
+
 		if curr.right != nil && !s.IsEmpty() { // check if stack is empty and root node's right child is nil
 			top, _ := s.Peek()
 			// top of stack and root's right node are equal
