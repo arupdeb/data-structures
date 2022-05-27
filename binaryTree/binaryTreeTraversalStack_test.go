@@ -244,13 +244,50 @@ func Test_tree_PostOrderTraversalStack(t *testing.T) {
 					left:  nil,
 					right: nil,
 				}
-				t.root.right = &Node{ // fix this test case
+				t.root.right.right = &Node{ 
 					data:  624,
 					left:  nil,
 					right: nil,
 				}
 				return t
 			},
+		},
+			{
+				name: "Traverse the tree from GFG example",
+				beforeTest: func() *tree {
+					t := CreateNewTree(1)
+					t.root.left = &Node{
+						data:  2,
+						left:  nil,
+						right: nil,
+					}
+					t.root.left.left = &Node{
+						data:  4,
+						left:  nil,
+						right: nil,
+					}
+					t.root.left.right = &Node{
+						data:  5,
+						left:  nil,
+						right: nil,
+					}
+					t.root.right = &Node{
+						data:  3,
+						left:  nil,
+						right: nil,
+					}
+					t.root.right.left = &Node{ 
+						data:  6,
+						left:  nil,
+						right: nil,
+					}
+					t.root.right.right = &Node{ 
+						data:  7,
+						left:  nil,
+						right: nil,
+					}
+					return t
+				},
 		},
 	}
 	for _, tt := range tests {
