@@ -147,7 +147,7 @@ func (t *tree) PostOrderTraversalStack(root *Node) {
 }
 
 // PostOrderTraversalStack : uses stack to traverse the binary tree using post-order traversal- DFS
-// func (t *tree) PostOrderTraversalStack(root *Node) {
+func (t *tree) PostOrderTraversalStack(root *Node) {
 // 	s := stacks.CreateNewStack()
 
 // 	for i := root; i != nil || !s.IsEmpty(); {
@@ -178,4 +178,4 @@ func (t *tree) PostOrderTraversalStack(root *Node) {
 // 		i = i.right
 
 // 	}
-// }
+ }
