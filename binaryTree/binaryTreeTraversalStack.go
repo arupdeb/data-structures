@@ -146,7 +146,7 @@ func (t *tree) PostOrderTraversalStack(root *Node) {
 
 }
 
-// PostOrderTraversalStack : uses stack to traverse the binary tree using post-order traversal- DFS
+// PostOrderTraversalStack2 : uses stack and hashinng to traverse the binary tree using post-order traversal- DFS
 func (t *tree) PostOrderTraversalStack2(root *Node) {
 // 	s := stacks.CreateNewStack()
 
