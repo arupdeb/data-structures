@@ -146,36 +146,41 @@ func (t *tree) PostOrderTraversalStack(root *Node) {
 
 }
 
-// PostOrderTraversalStack2 : uses stack and hashinng to traverse the binary tree using post-order traversal- DFS
-func (t *tree) PostOrderTraversalStack2(root *Node) {
-// 	s := stacks.CreateNewStack()
 
-// 	for i := root; i != nil || !s.IsEmpty(); {
+// Method 3 (Iterative PostOrder Traversal Using Stack and Hashing) :  
+// Create a Stack for finding the postorder traversal and an unordered map for hashing to mark the visited nodes.
+// Initially push the root node in the stack and follow the below steps until the stack is not empty. The stack will get empty when postorder traversal is done/stored.
+// Mark the current node (node on the top of stack) as visited in our hashtable.
+// If the left child of the current node is not NULL and not visited then push the left child into the stack.
+// Otherwise, if the right child of the top node is not NULL and not visited push the right child into the stack
+// If none of the above two conditions holds true then add the value of the current node to our answer and remove(pop) the current node from the stack.
+// When the stack gets empty, we will have postorder traversal stored in our answer data structure (array or vector).
 
-// 		for j := i; j != nil; {
-// 			s.Push(j)
-// 			j = j.left
-// 		}
-// 		//j is nil after visiting all the left nodes
+// PostOrderTraversalStackHashing : uses stack and hashinng to traverse the binary tree using post-order traversal- DFS
+func (t *tree) PostOrderTraversalStackHashing(root *Node) {
 
-// 		// get the topmost entry and peek the value
-// 		top, err := s.Peek()
-// 		if err != nil {
-// 			log.Println(err.Error())
-// 		}
+	s := stacks.CreateNewStack(root)
+	visited := make(map[*Node]bool)
 
-// 		// store the data to i for visiting
-// 		i = top.(*Node)
+	for !s.IsEmpty() {
+		data, err := s.Peek()
+		if err != nil {
+			log.Println(err.Error())
+		}
 
-// 		//Print the right node value
-// 		if i.right != nil {
-// 			log.Println("i.right.data : ", i.right.data)
-// 		}
-// 		//Print the Root node value
-// 		log.Println("i.data : ", i.data)
-// 		s.Pop() // visited
-// 		// visit right subtree
-// 		i = i.right
+		top := data.(*Node)
+		// log.Println("TOP: ", top)
+		visited[top] = true
 
-// 	}
+		if top != nil {
+			if _, ok := visited[top.left]; top.left != nil && !ok {
+				s.Push(top.left)
+			} else if  _, ok := visited[top.right]; top.right != nil && !ok {
+				s.Push(top.right)
+			} else {
+				log.Println(top.data)
+				s.Pop()
+			}
+		}
+	}
  }
