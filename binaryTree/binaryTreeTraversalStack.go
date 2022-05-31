@@ -147,7 +147,7 @@ func (t *tree) PostOrderTraversalStack(root *Node) {
 }
 
 
-// Method 3 (Iterative PostOrder Traversal Using Stack and Hashing) :  
+// Method 3 (Iterative PostOrder Traversal Using Stack and Hashing):  
 // Create a Stack for finding the postorder traversal and an unordered map for hashing to mark the visited nodes.
 // Initially push the root node in the stack and follow the below steps until the stack is not empty. The stack will get empty when postorder traversal is done/stored.
 // Mark the current node (node on the top of stack) as visited in our hashtable.
