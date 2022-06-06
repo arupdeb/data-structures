@@ -6,6 +6,6 @@ given max number of elements in an queue
 4. Add fucntions to contruct a tree from pre-order, in-order and post-order traversal from an array of interface
 
 5. Binary search tree
-6. Traversal without a stacka and recursion
+6. Traversal without a stacks and recursion 
 
 
